@@ -1,0 +1,60 @@
+[
+  {
+    "context": "Terminal",
+    "bindings": {
+      "shift-enter": ["terminal::SendText", "\u001b\r"],
+    },
+  },
+  {
+    "unbind": {
+      "ctrl-q": "zed::Quit",
+    },
+  },
+  {
+    "context": "Editor",
+    "unbind": {
+      "ctrl-;": "editor::ToggleLineNumbers",
+    },
+  },
+  {
+    "context": "AcpThread > Editor",
+    "unbind": {
+      "ctrl-;": "agent::OpenAddContextMenu",
+    },
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-;": "terminal_panel::Toggle",
+    },
+  },
+  {
+    "context": "Workspace",
+    "unbind": {
+      "ctrl-`": "terminal_panel::Toggle",
+    },
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-:": "workspace::NewTerminal",
+    },
+  },
+  {
+    "context": "Workspace",
+    "unbind": {
+      "ctrl-~": "workspace::NewTerminal",
+    },
+  },
+  {
+    "context": "Workspace",
+    "unbind": {
+      "ctrl-alt--": [
+        "workspace::DecreaseActiveDockSize",
+        {
+          "px": 0,
+        },
+      ],
+    },
+  },
+]

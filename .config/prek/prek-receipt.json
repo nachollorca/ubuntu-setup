@@ -1,0 +1,1 @@
+{"binaries":["prek"],"binary_aliases":{},"cdylibs":[],"cstaticlibs":[],"install_layout":"flat","install_prefix":"/home/nacho/.local/bin","modify_path":true,"provider":{"source":"cargo-dist","version":"0.31.0"},"source":{"app_name":"prek","name":"prek","owner":"j178","release_type":"github"},"version":"0.3.8"}

@@ -1,0 +1,15 @@
+[mgr]
+show_hidden = true
+
+[opener]
+edit = [
+    { run = 'micro "$@"', block = true, desc = "Micro" },
+]
+
+[open]
+rules = [
+    # Open all text files with micro
+    { mime = "text/*", use = "edit" },
+    # Fallback for files without a mime type that you know are text
+    { name = "*.conf", use = "edit" },
+]

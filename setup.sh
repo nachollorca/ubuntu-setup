@@ -37,9 +37,9 @@ echo "deb [signed-by=/etc/apt/keyrings/noctalia.gpg] https://pkg.noctalia.dev/ap
 # add-apt-repository imports the PPA signing key and writes a sources file
 # stamped with the current codename. On Ubuntu releases newer than what the
 # PPA publishes for, rewrite the codename to a known-good one (questing).
-PPA_FALLBACK_SUITE="questing"
 add_ppa() {
 	local ppa="$1"
+	local fallback="${2:-questing}"
 	sudo add-apt-repository -y -n "ppa:${ppa}"
 	if [[ "${UBUNTU_CODENAME}" == "resolute" ]]; then
 		local owner="${ppa%%/*}"
@@ -49,7 +49,7 @@ add_ppa() {
 			"/etc/apt/sources.list.d/${owner}-ubuntu-${name}-${UBUNTU_CODENAME}.sources" \
 			"/etc/apt/sources.list.d/${owner}-ubuntu-${name}-${UBUNTU_CODENAME}.list"; do
 			if [[ -f "${f}" ]]; then
-				sudo sed -i "s/\b${UBUNTU_CODENAME}\b/${PPA_FALLBACK_SUITE}/g" "${f}"
+				sudo sed -i "s/\b${UBUNTU_CODENAME}\b/${fallback}/g" "${f}"
 			fi
 		done
 	fi
@@ -57,7 +57,7 @@ add_ppa() {
 
 add_ppa fish-shell/release-4
 add_ppa mkasberg/ghostty-ubuntu
-add_ppa daniel-milde/gdu
+add_ppa daniel-milde/gdu       noble
 
 sudo apt update
 

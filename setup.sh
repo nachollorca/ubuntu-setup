@@ -11,6 +11,7 @@ sudo apt install -y \
 	ca-certificates \
 	gnupg \
 	software-properties-common \
+	rsync \
 	flatpak \
 	snapd \
 	build-essential \
@@ -23,13 +24,40 @@ sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub
 
 sudo mkdir -p /etc/apt/keyrings
 curl -fsSL https://pkg.noctalia.dev/gpg.key | sudo gpg --dearmor -o /etc/apt/keyrings/noctalia.gpg
-NOCTALIA_SUITE="$(. /etc/os-release && echo "${VERSION_CODENAME}")"
+# noctalia.dev currently publishes up to 'questing' (Ubuntu 25);
+# pin to that on newer Ubuntu releases until they ship our codename.
+UBUNTU_CODENAME="$(. /etc/os-release && echo "${VERSION_CODENAME}")"
+case "${UBUNTU_CODENAME}" in
+	resolute) NOCTALIA_SUITE="questing" ;;
+	*)        NOCTALIA_SUITE="${UBUNTU_CODENAME}" ;;
+esac
 echo "deb [signed-by=/etc/apt/keyrings/noctalia.gpg] https://pkg.noctalia.dev/apt ${NOCTALIA_SUITE} main" \
 	| sudo tee /etc/apt/sources.list.d/noctalia.list
 
-sudo add-apt-repository -y ppa:fish-shell/release-4
-sudo add-apt-repository -y ppa:mkasberg/ghostty-ubuntu
-sudo add-apt-repository -y ppa:daniel-milde/gdu
+# add-apt-repository imports the PPA signing key and writes a sources file
+# stamped with the current codename. On Ubuntu releases newer than what the
+# PPA publishes for, rewrite the codename to a known-good one (questing).
+PPA_FALLBACK_SUITE="questing"
+add_ppa() {
+	local ppa="$1"
+	sudo add-apt-repository -y -n "ppa:${ppa}"
+	if [[ "${UBUNTU_CODENAME}" == "resolute" ]]; then
+		local owner="${ppa%%/*}"
+		local name="${ppa##*/}"
+		local f
+		for f in \
+			"/etc/apt/sources.list.d/${owner}-ubuntu-${name}-${UBUNTU_CODENAME}.sources" \
+			"/etc/apt/sources.list.d/${owner}-ubuntu-${name}-${UBUNTU_CODENAME}.list"; do
+			if [[ -f "${f}" ]]; then
+				sudo sed -i "s/\b${UBUNTU_CODENAME}\b/${PPA_FALLBACK_SUITE}/g" "${f}"
+			fi
+		done
+	fi
+}
+
+add_ppa fish-shell/release-4
+add_ppa mkasberg/ghostty-ubuntu
+add_ppa daniel-milde/gdu
 
 sudo apt update
 

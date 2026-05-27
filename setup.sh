@@ -6,6 +6,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # --- Prerequisites & package managers ---------------------------------------
 
 sudo apt update
+sudo add-apt-repository -y universe
 sudo apt install -y \
 	curl \
 	ca-certificates \

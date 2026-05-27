@@ -57,7 +57,6 @@ add_ppa() {
 
 add_ppa fish-shell/release-4
 add_ppa mkasberg/ghostty-ubuntu
-add_ppa daniel-milde/gdu       noble
 
 sudo apt update
 
@@ -69,7 +68,6 @@ sudo apt install -y \
 	fish \
 	ghostty \
 	bat \
-	gdu \
 	micro \
 	fonts-jetbrains-mono \
 	gh

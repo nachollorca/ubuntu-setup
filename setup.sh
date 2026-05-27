@@ -45,7 +45,9 @@ sudo apt install -y \
 	bat \
 	micro \
 	fonts-jetbrains-mono \
-	gh
+	gh \
+	cargo \
+	eza
 
 # --- snap packages ------------------------------------------------------------
 
@@ -61,24 +63,19 @@ flatpak install -y flathub org.chromium.Chromium
 # --- curl-based installers ----------------------------------------------------
 
 curl -sS https://starship.rs/install.sh | sh -s -- -y
-curl -fsSL https://pi.dev/install.sh | sh -s -- -y
 curl -LsSf https://astral.sh/uv/install.sh | sh -s -- -y
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh -s -- -y
 curl -fsSL https://zed.dev/install.sh | sh -s -- -y
-curl -LsSf https://mistral.ai/vibe/install.sh | bash -s -- -y
 curl --proto '=https' --tlsv1.2 -LsSf \
 	https://github.com/j178/prek/releases/download/v0.4.2/prek-installer.sh | sh -s -- -y
 
 # --- Tools installed via freshly sourced PATH ---------------------------------
 
 # shellcheck disable=SC1091
-source "${HOME}/.cargo/env"
-# shellcheck disable=SC1091
 [[ -f "${HOME}/.local/bin/env" ]] && source "${HOME}/.local/bin/env"
-export PATH="${HOME}/.local/bin:${HOME}/.cargo/bin:${PATH}"
+export PATH="${HOME}/.local/bin:${PATH}"
 
-cargo install eza
 uv tool install lmti
 
 # --- Shell & editor defaults --------------------------------------------------

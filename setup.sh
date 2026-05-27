@@ -63,12 +63,12 @@ flatpak install -y flathub org.chromium.Chromium
 # --- curl-based installers ----------------------------------------------------
 
 curl -sS https://starship.rs/install.sh | sh -s -- -y
-curl -LsSf https://astral.sh/uv/install.sh | sh -s -- -y
+curl -LsSf https://astral.sh/uv/install.sh | sh
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh -s -- -y
-curl -fsSL https://zed.dev/install.sh | sh -s -- -y
+curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
+curl -fsSL https://zed.dev/install.sh | sh
 curl --proto '=https' --tlsv1.2 -LsSf \
-	https://github.com/j178/prek/releases/download/v0.4.2/prek-installer.sh | sh -s -- -y
+	https://github.com/j178/prek/releases/download/v0.4.2/prek-installer.sh | sh
 
 # --- Tools installed via freshly sourced PATH ---------------------------------
 
@@ -103,6 +103,7 @@ fi
 # - Log into gh
 # - Set SSH key on GitHub
 # - Install Cursor
+# - Install Pi
 #
 # Chromium:
 # - Make work and not-work profiles

@@ -58,6 +58,8 @@ add_ppa() {
 
 add_ppa fish-shell/release-4
 add_ppa mkasberg/ghostty-ubuntu
+add_ppa avengemedia/danklinux
+add_ppa avengemedia/dms
 
 sudo apt update
 
